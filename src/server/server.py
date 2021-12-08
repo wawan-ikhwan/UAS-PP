@@ -96,8 +96,8 @@ def splitWL(belah):
   jarakBaris=range(0,banyakBaris,banyakBaris//belah)
   print('Jarak baris:',list(jarakBaris))
   deleteAllFilesInFolder('./wordlist/splitted')
+  deleteAllFilesInFolder('./wordlist/destination')
   for pointer in range(len(jarakBaris)-1):
-    # namaFile=str(pointer)+'_'+str(jarakBaris[pointer])+'-'+str(jarakBaris[pointer+1])+'.txt'
     namaFile=str(pointer+1)+'.txt'
     buffLines=wordlist[jarakBaris[pointer]:jarakBaris[pointer+1]]
     open('./wordlist/splitted/'+namaFile,'w').write('\n'.join(buffLines))

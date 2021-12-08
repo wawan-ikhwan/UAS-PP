@@ -32,7 +32,9 @@ def clientReceive():
         buffer=s.recv(1024).decode()
         print(buffer)
         if sessID is None and 'sessID=' in buffer:
-          #deleteAllFilesInFolder('./WLpart')
+          deleteAllFilesInFolder('./WLpart')
+          deleteAllFilesInFolder('./AVGpart')
+          deleteAllFilesInFolder('./CSVpart')
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
           open('sessID.txt','w').write(sessID)
           # Dapatkan file pembagian tugas...
