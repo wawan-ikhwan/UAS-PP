@@ -39,17 +39,17 @@ def clientReceive():
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
           open(relativePath+'./sessID.txt','w').write(sessID)
         elif '!get' in buffer:
-          s.send('Sedang mengambil wordlist parsial'.encode())
+          print('Sedang mengambil wordlist parsial')
           getData()
-          s.send('Sukses mengambil wordlist parsial'.encode())
+          print('Sukses mengambil wordlist parsial')
         elif '!fetch' in buffer:
-          s.send('Sedang mengambil keyword'.encode())
+          print('Sedang mengambil trend parsial')
           fetching(sessID)
-          s.send('Sukses mengambil keyword'.encode())
+          print('sukses mengambil trend parsial')
         elif '!put' in buffer:
-          s.send('Sedang mengupload hasil parsial'.encode())
+          print('Sedang mengupload hasil parsial')
           putData(sessID+'.avg')
-          s.send('Sukses mengupload hasil parsial'.encode())
+          print('sukses mengupload hasil parsial')
     except:
       pass
   exit()
