@@ -8,7 +8,7 @@ from pytrends.request import TrendReq
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-relativePath=os.path.dirname(__file__)+'/'
+relativePath=os.path.dirname(os.path.realpath(__file__))+'/'
 os.chdir(relativePath)
 os.system('mkdir WLpart')
 os.system('mkdir CSVpart')
