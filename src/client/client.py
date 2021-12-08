@@ -96,7 +96,7 @@ def fetching(sessID,sleepTime=5):
     trend.build_payload(kw_list, cat=0, timeframe='today 5-y', geo='ID', gprop='')
     df=trend.interest_over_time()
     df.to_csv(relativePath+'./CSVpart/'+target+'.csv')
-    avg=target+','+str(int(df.mean(numeric_only=True)))
+    avg=target+','+str(float(df.mean(numeric_only=True)))
     print(avg+str(' | ')+str(i)+'/'+str(banyakBaris)+'\n')
     open(relativePath+'./AVGpart/'+sessID+'.avg','a+').write(avg+'\n')
     time.sleep(sleepTime)
