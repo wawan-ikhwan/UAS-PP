@@ -43,11 +43,11 @@ def clientReceive():
         buffer=s.recv(1024).decode()
         print(buffer)
         if sessID is None and 'sessID=' in buffer:
-          setupFolder()
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
           open(relativePath+'./sessID.txt','w').write(sessID)
         elif '!get' in buffer and not isGet:
           print('Sedang mengambil wordlist parsial')
+          setupFolder()
           getData()
           isGet=True
           print('Sukses mengambil wordlist parsial')
