@@ -87,7 +87,7 @@ def fetching(sessID,sleepTime=5):
     df.to_csv(relativePath+'./CSVpart/'+target+'.csv')
     avg=target+','+str(int(df.mean(numeric_only=True)))
     print(avg+str(' | ')+str(i)+'/'+str(banyakBaris)+'\n')
-    open(relativePath+'./AVGpart/'+sessID+'.avg','a+').write(avg)
+    open(relativePath+'./AVGpart/'+sessID+'.avg','a+').write(avg+'\n')
     time.sleep(sleepTime)
 
 def putData(fileName):
