@@ -15,7 +15,7 @@ os.system('mkdir CSVpart')
 os.system('mkdir AVGpart')
 
 interupsi=False
-IP,PORT=('27.112.79.120',12345)
+IP,PORT=('27.112.79.120',56322)
 #IP,PORT=('127.0.0.1',12345)
 
 s=socket()

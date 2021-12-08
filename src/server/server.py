@@ -5,7 +5,7 @@ import pandas as pd
 import os
 import glob
 
-IP,PORT=('0.0.0.0',12345) # Environtment Config, edit terserah user
+IP,PORT=('0.0.0.0',56322) # Environtment Config, edit terserah user
 
 clients=[] #clients[posisisKlien][1=(ip,port)][0=ip,1=ports]
 errors=(ConnectionAbortedError, ConnectionError, ConnectionRefusedError, ConnectionResetError, TimeoutError, timeout)
