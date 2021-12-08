@@ -21,12 +21,20 @@ IP,PORT=('27.112.79.120',12345)
 s=socket()
 s.connect((IP,PORT))
 
+isGet=False
+isFetch=False
+isPut=False
+
 # ======================THREAD CLIENT==================================
 sessID=None
 def clientReceive():
   global relativePath
   global interupsi
   global sessID
+
+  global isGet
+  global isFetch
+  global isPut
   while not interupsi:
     time.sleep(0.1)
     try:
@@ -38,17 +46,20 @@ def clientReceive():
           setupFolder()
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
           open(relativePath+'./sessID.txt','w').write(sessID)
-        elif '!get' in buffer:
+        elif '!get' in buffer and not isGet:
           print('Sedang mengambil wordlist parsial')
           getData()
+          isGet=True
           print('Sukses mengambil wordlist parsial')
-        elif '!fetch' in buffer:
+        elif '!fetch' in buffer and not isFetch:
           print('Sedang mengambil trend parsial')
           fetching(sessID)
+          isFetch=True
           print('sukses mengambil trend parsial')
-        elif '!put' in buffer:
+        elif '!put' in buffer and not isPut:
           print('Sedang mengupload hasil parsial')
           putData(sessID+'.avg')
+          isPut=True
           print('sukses mengupload hasil parsial')
     except:
       pass
