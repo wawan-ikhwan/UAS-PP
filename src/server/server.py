@@ -45,7 +45,7 @@ def serverInput(): # Fungsi dimana server dapat broadcast pesan
     elif serverInp == '!combineHasil':
       combineHasil('./wordlist/destination')
       sortHasil('./wordlist/destination')
-      sebarkanPesan('Server menggabungkan dan menyortir hasil!')
+      sebarkanPesan('Server menggabungkan hasil dan menyortir hasil!')
     else:
       sebarkanPesan(serverInp)
 

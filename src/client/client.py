@@ -29,16 +29,26 @@ def clientReceive():
     try:
       s.settimeout(1)
       if not interupsi:
+        setupFolder()
         buffer=s.recv(1024).decode()
         print(buffer)
         if sessID is None and 'sessID=' in buffer:
-          deleteAllFilesInFolder('./WLpart')
-          deleteAllFilesInFolder('./AVGpart')
-          deleteAllFilesInFolder('./CSVpart')
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
           open('sessID.txt','w').write(sessID)
           # Dapatkan file pembagian tugas...
           getData()
+        elif '!get' in buffer:
+          s.send('Sedang mengambil wordlist parsial'.encode())
+          getData()
+          s.send('Sukses mengambil wordlist parsial'.encode())
+        elif '!fetch' in buffer:
+          s.send('Sedang mengambil keyword'.encode())
+          fetching()
+          s.send('Sukses mengambil keyword'.encode())
+        elif '!put' in buffer:
+          s.send('Sedang mengupload hasil parsial'.encode())
+          putData()
+          s.send('Sukses mengupload hasil parsial'.encode())
     except:
       pass
   exit()
@@ -91,6 +101,12 @@ def deleteAllFilesInFolder(path): # PERINGATAN: GUNAKAN SECARA HATI-HATI!
   files = glob.glob(path+'/*')
   for f in files:
       os.remove(f)
+
+def setupFolder():
+  deleteAllFilesInFolder('./WLpart')
+  deleteAllFilesInFolder('./AVGpart')
+  deleteAllFilesInFolder('./CSVpart')
+
 
 if __name__=='__main__':
   threadClientReceive=Thread(target=clientReceive,args=())

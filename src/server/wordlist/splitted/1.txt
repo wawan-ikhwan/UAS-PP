@@ -155,3 +155,83 @@ Jeneponto
 Jepara
 Jombang
 Kaimana
+Kampar
+Kapuas
+Kapuas Hulu
+Karang Asem
+Karanganyar
+Karawang
+Karimun
+Karo
+Katingan
+Kaur
+Kayong Utara
+Kebumen
+Kediri
+Keerom
+Kendal
+Kendari
+Kepahiang
+Kepulauan Anambas
+Kepulauan Aru
+Kepulauan Mentawai
+Kepulauan Meranti
+Kepulauan Sangihe
+Kepulauan Selayar
+Kepulauan Seribu
+Kepulauan Sula
+Kepulauan Talaud
+Kepulauan Yapen
+Kerinci
+Ketapang
+Klaten
+Klungkung
+Kolaka
+Kolaka Utara
+Konawe
+Konawe Selatan
+Konawe Utara
+Kotamobagu
+Kotawaringin Barat
+Kotawaringin Timur
+Kuantan Singingi
+Kubu Raya
+Kudus
+Kulon Progo
+Kuningan
+Kupang
+Kutai Barat
+Kutai Kartanegara
+Kutai Timur
+Labuhan Batu
+Labuhan Batu Selatan
+Labuhan Batu Utara
+Lahat
+Lamandau
+Lamongan
+Lampung Barat
+Lampung Selatan
+Lampung Tengah
+Lampung Timur
+Lampung Utara
+Landak
+Langkat
+Langsa
+Lanny Jaya
+Lebak
+Lebong
+Lembata
+Lhokseumawe
+Lima Puluh Kota
+Lingga
+Lombok Barat
+Lombok Tengah
+Lombok Timur
+Lombok Utara
+Lubuklinggau
+Lumajang
+Luwu
+Luwu Timur
+Luwu Utara
+Madiun
+Magelang
