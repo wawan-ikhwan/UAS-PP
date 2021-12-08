@@ -1,4 +1,4 @@
-from socket import timeout, socket
+from socket import socket
 from threading import Thread
 import time
 import os
@@ -8,6 +8,8 @@ from pytrends.request import TrendReq
 import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
+relativePath=os.path.dirname(__file__)+'/'
+os.chdir(relativePath)
 os.system('mkdir WLpart')
 os.system('mkdir CSVpart')
 os.system('mkdir AVGpart')
@@ -22,6 +24,7 @@ s.connect((IP,PORT))
 # ======================THREAD CLIENT==================================
 sessID=None
 def clientReceive():
+  global relativePath
   global interupsi
   global sessID
   while not interupsi:
@@ -29,31 +32,30 @@ def clientReceive():
     try:
       s.settimeout(1)
       if not interupsi:
-        setupFolder()
         buffer=s.recv(1024).decode()
         print(buffer)
         if sessID is None and 'sessID=' in buffer:
+          setupFolder()
           sessID=buffer[buffer.rfind('=')+1:] #filter char '=' karena didapat dari pesan server ketika client pertama kali masuk
-          open('sessID.txt','w').write(sessID)
-          # Dapatkan file pembagian tugas...
-          getData()
+          open(relativePath+'./sessID.txt','w').write(sessID)
         elif '!get' in buffer:
           s.send('Sedang mengambil wordlist parsial'.encode())
           getData()
           s.send('Sukses mengambil wordlist parsial'.encode())
         elif '!fetch' in buffer:
           s.send('Sedang mengambil keyword'.encode())
-          fetching()
+          fetching(sessID)
           s.send('Sukses mengambil keyword'.encode())
         elif '!put' in buffer:
           s.send('Sedang mengupload hasil parsial'.encode())
-          putData()
+          putData(sessID+'.avg')
           s.send('Sukses mengupload hasil parsial'.encode())
     except:
       pass
   exit()
 
 def clientSend():
+  global relativePath
   global interupsi
   global sessID
   while not interupsi:
@@ -73,7 +75,8 @@ def clientSend():
 # =============================================================
 
 def fetching(sessID,sleepTime=5):
-  wl=open('./WLpart/'+sessID+'.txt').read().splitlines()
+  global relativePath
+  wl=open(relativePath+'./WLpart/'+sessID+'.txt').read().splitlines()
   banyakBaris=len(wl)-1
   trend=TrendReq(hl='id',timeout=(10,25),retries=2, backoff_factor=0.1, requests_args={'verify':False})
   for i in range(banyakBaris):
@@ -81,24 +84,28 @@ def fetching(sessID,sleepTime=5):
     kw_list = [target]
     trend.build_payload(kw_list, cat=0, timeframe='today 5-y', geo='ID', gprop='')
     df=trend.interest_over_time()
-    df.to_csv('./CSVpart/'+target+'.csv')
+    df.to_csv(relativePath+'./CSVpart/'+target+'.csv')
     avg=target+','+str(int(df.mean(numeric_only=True)))
     print(avg+str(' | ')+str(i)+'/'+str(banyakBaris)+'\n')
-    open('./AVGpart/'+sessID+'.avg','a+').write(avg)
+    open(relativePath+'./AVGpart/'+sessID+'.avg','a+').write(avg)
     time.sleep(sleepTime)
 
 def putData(fileName):
+  global relativePath
   headers = {'Content-Type': 'text/plain'}
   url='http://27.112.79.120:8000/'+fileName
-  r = requests.put(url, data=open('./AVGpart/'+fileName, 'rb'),headers=headers)
+  r = requests.put(url, data=open(relativePath+'./AVGpart/'+fileName, 'rb'),headers=headers)
 
 def getData():
+  global sessID
+  global relativePath
   url = 'http://27.112.79.120:8000/splitted/'+sessID+'.txt'
   r = requests.get(url)
-  open('./WLpart/'+sessID+'.txt', 'wb').write(r.content)
+  open(relativePath+'./WLpart/'+sessID+'.txt', 'wb').write(r.content)
 
 def deleteAllFilesInFolder(path): # PERINGATAN: GUNAKAN SECARA HATI-HATI!
-  files = glob.glob(path+'/*')
+  global relativePath
+  files = glob.glob(relativePath+path+'/*')
   for f in files:
       os.remove(f)
 
@@ -106,7 +113,6 @@ def setupFolder():
   deleteAllFilesInFolder('./WLpart')
   deleteAllFilesInFolder('./AVGpart')
   deleteAllFilesInFolder('./CSVpart')
-
 
 if __name__=='__main__':
   threadClientReceive=Thread(target=clientReceive,args=())
