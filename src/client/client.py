@@ -88,7 +88,7 @@ def clientSend():
   exit()
 # =============================================================
 
-def fetching(sessID,sleepTime=5):
+def fetching(sessID,sleepTime=3):
   global relativePath
   wl=open(relativePath+'./WLpart/'+sessID+'.txt').read().splitlines()
   banyakBaris=len(wl)-1
