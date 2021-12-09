@@ -81,6 +81,9 @@ def clientSend():
       getData()
     elif pesan == '!fetch':
       fetching(sessID)
+    elif '@S' in pesan:
+      print('Sessid set to', pesan[-1])
+      sessID=pesan[-1]
     s.send(pesan.encode())
   exit()
 # =============================================================

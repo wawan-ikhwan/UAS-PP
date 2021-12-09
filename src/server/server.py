@@ -94,12 +94,14 @@ def splitWL(belah):
   wordlist=open('./wordlist/source/kota-kabupaten.txt','r').read().splitlines()
   banyakBaris=len(wordlist)
   jarakBaris=range(0,banyakBaris,banyakBaris//belah)
-  print('Jarak baris:',list(jarakBaris))
+  lJarakBaris=list(jarakBaris)
+  lJarakBaris.append(banyakBaris)
+  print('Jarak baris:',lJarakBaris)
   deleteAllFilesInFolder('./wordlist/splitted')
   deleteAllFilesInFolder('./wordlist/destination')
-  for pointer in range(len(jarakBaris)-1):
+  for pointer in range(len(jarakBaris)):
     namaFile=str(pointer+1)+'.txt'
-    buffLines=wordlist[jarakBaris[pointer]:jarakBaris[pointer+1]]
+    buffLines=wordlist[lJarakBaris[pointer]:lJarakBaris[pointer+1]]
     open('./wordlist/splitted/'+namaFile,'w').write('\n'.join(buffLines))
 
 def combineHasil(path):
@@ -119,7 +121,7 @@ def deleteAllFilesInFolder(path): # PERINGATAN: GUNAKAN SECARA HATI-HATI!
       os.remove(f)
 
 if __name__=='__main__':
-  print('\rServer berjalan pada',IP,':',PORT,'\n')
+  print('\rServer berjaland pada',IP,':',PORT,'\n')
   interupsi=False
   threadServerInput=Thread(target=serverInput,args=()) # digunakan untuk mengirim input ke semua clients
   threadServerAccept=Thread(target=serverAccept,args=())
